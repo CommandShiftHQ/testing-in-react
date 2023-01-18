@@ -1,6 +1,8 @@
 import "../styles/app.css";
 import Post from "./Post";
 
+import placeholderData from "../data/posts.json"
+
 const App = () => {
   return (
     <div className="app">
@@ -13,7 +15,7 @@ const App = () => {
           // TODO: Create a Postlist component to wrap all Posts in,
           //   display name of last upvoted post at the top
         }
-        <Post />
+        <Post postData={placeholderData[0]} />
       </div>
     </div>
   );
