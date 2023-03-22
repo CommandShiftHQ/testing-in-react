@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import "../styles/post.css";
 
-const Post = ({ postData }) => {
+const Post = ({ postData, handleUpvote }) => {
   const { title, author, date, isPublished, body, tags } = postData;
   const [count, setCount] = useState(0);
 
-  const handleClick = () => {
+  const handleClick = (event) => {
     setCount((prev) => prev + 1);
+    handleUpvote(event.target.value);
   };
 
   return (
@@ -17,7 +18,7 @@ const Post = ({ postData }) => {
       </div>
       <div className="post-counter">
         <span>Upvotes: {count}</span>
-        <button onClick={handleClick} type="button">
+        <button onClick={handleClick} value={title} type="button">
           Upvote this
         </button>
       </div>
