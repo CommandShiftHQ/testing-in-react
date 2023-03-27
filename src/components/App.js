@@ -8,11 +8,7 @@ const App = () => {
     <div className="app">
       <div className="app__background-wrap" />
       <div className="app__foreground-wrap">
-        <div className="app__title">Intro to React II</div>
-        {
-          // TODO: Create a Postlist component to wrap all Posts in,
-          //   display name of last upvoted post at the top
-        }
+        <div className="app__title">Testing in React</div>
         <PostList posts={placeholderData} />
       </div>
     </div>
