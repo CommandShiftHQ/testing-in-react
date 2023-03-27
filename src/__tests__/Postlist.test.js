@@ -1,4 +1,4 @@
-import React from "@testing-library/react";
+import React, { fireEvent, render, screen } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import Postlist from "../components/Postlist";
 
@@ -30,5 +30,30 @@ describe("Postlist", () => {
     const rendered = renderer.create(<Postlist posts={validProps.posts} />);
 
     expect(rendered).toMatchSnapshot();
+  });
+
+  test("Last upvoted post is displayed when clicked", async () => {
+    render(<Postlist posts={validProps.posts} />);
+
+    const buttons = screen.getAllByRole("button");
+    const firstPostUpvote = buttons[0];
+    const secondPostUpvote = buttons[1];
+
+    expect(firstPostUpvote).toHaveValue(validProps.posts[0].title);
+    expect(secondPostUpvote).toHaveValue(validProps.posts[1].title);
+
+    const lastUpvotedBox = screen.queryByText("Last upvoted post:");
+
+    expect(lastUpvotedBox).toBeNull();
+
+    fireEvent.click(firstPostUpvote);
+    let lastUpvoted = await screen.findByText("Last upvoted post: test title");
+
+    expect(lastUpvoted).toBeInTheDocument();
+
+    fireEvent.click(secondPostUpvote);
+    lastUpvoted = await screen.findByText("Last upvoted post: test title 2");
+
+    expect(lastUpvoted).toBeInTheDocument();
   });
 });
