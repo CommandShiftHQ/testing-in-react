@@ -1,4 +1,4 @@
-import React from "@testing-library/react";
+import React, { render, screen } from "@testing-library/react";
 import renderer from "react-test-renderer";
 import Post from "../components/Post";
 
@@ -12,7 +12,6 @@ describe("Post", () => {
       tags: ["test tag1", "test tag2", "test tag3"],
       title: "test title",
     },
-
     handleUpvote: jest.fn(),
   };
 
@@ -25,5 +24,16 @@ describe("Post", () => {
     );
 
     expect(rendered).toMatchSnapshot();
+  });
+
+  test("Assert the post author is present", () => {
+    render(
+      <Post
+        postData={validProps.postData}
+        handleUpvote={validProps.handleUpvote}
+      />
+    );
+
+    expect(screen.getByText("Author: test author")).toBeInTheDocument();
   });
 });
