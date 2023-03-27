@@ -50,4 +50,16 @@ describe("Post", () => {
     expect(buttons).toHaveLength(1);
     expect(buttons[0]).toHaveTextContent("Upvote this");
   });
+
+  test("Tags list renders correct number of items", () => {
+    render(
+      <Post
+        postData={validProps.postData}
+        handleUpvote={validProps.handleUpvote}
+      />
+    );
+    const tags = screen.getAllByRole("listitem");
+
+    expect(tags.length).toBe(3);
+  });
 });
